@@ -1,0 +1,23 @@
+def jimOrders(orders):
+    # Write your code here
+    times = [[sum(i)] for i in orders]
+    for i in range(len(times)):
+        times[i].append(i)
+    times.sort(key = lambda x: (x[0],x[1]))
+    return [i[1] + 1 for i in times]
+if __name__ == '__main__':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+
+    n = int(input().strip())
+
+    orders = []
+
+    for _ in range(n):
+        orders.append(list(map(int, input().rstrip().split())))
+
+    result = jimOrders(orders)
+
+    fptr.write(' '.join(map(str, result)))
+    fptr.write('\n')
+
+    fptr.close()
