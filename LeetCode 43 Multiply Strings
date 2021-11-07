@@ -1,0 +1,14 @@
+class Solution(object):
+    def multiply(self, num1, num2):
+        """
+        :type num1: str
+        :type num2: str
+        :rtype: str
+        """
+        product = 0
+        for i in range(len(num1)):
+            for j in range(len(num2)):
+                firstnum = int(num1[i]) * (10**(len(num1)-i-1))
+                secondnum = int(num2[j]) * (10**(len(num2)-j-1))
+                product += firstnum*secondnum
+        return str(product)
