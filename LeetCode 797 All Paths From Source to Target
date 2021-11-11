@@ -1,0 +1,20 @@
+class Solution(object):
+    def allPathsSourceTarget(self, graph):
+        """
+        :type graph: List[List[int]]
+        :rtype: List[List[int]]
+        """
+        def dfs(vertex, target, cpath, paths):
+            cpath.append(vertex)
+            if vertex != target:
+                for neighbor in graph[vertex]:
+                    dfs(neighbor, target, cpath, paths)
+            else:
+                paths.append(cpath[::])
+            cpath.pop()
+        n = len(graph)
+        sourceVertex = 0
+        paths = []
+        for sourceneighbor in graph[sourceVertex]:
+            dfs(sourceneighbor, n - 1, [0], paths)
+        return paths
