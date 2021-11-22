@@ -1,0 +1,31 @@
+class Solution(object):
+    def letterCombinations(self, digits):
+        """
+        :type digits: str
+        :rtype: List[str]
+        """
+        if digits == "":
+            return []
+        digit_to_letter = {
+            2 : ["a","b","c"],
+            3 : ["d","e","f"],
+            4 : ["g","h","i"],
+            5 : ["j","k","l"],
+            6 : ["m","n","o"],
+            7 : ["p","q","r","s"],
+            8 : ["t","u","v"],
+            9 : ["w","x","y","z"]
+        }
+        currlist = []
+        for digit in digits:
+            if currlist == []:
+                for letter in digit_to_letter[int(digit)]:
+                    currlist.append(letter)
+            else:
+                length = len(currlist)
+                new = []
+                for string in currlist:
+                    for letter in digit_to_letter[int(digit)]:
+                        new.append(string + letter)
+                currlist = new[:]
+        return currlist 
