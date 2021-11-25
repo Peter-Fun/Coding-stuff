@@ -1,0 +1,13 @@
+class Solution(object):
+    def twoEggDrop(self, n):
+        """
+        :type n: int
+        :rtype: int
+        """
+        count = 0
+        iterable = n
+        while iterable > 0:
+            count += 1
+            iterable -= count
+        
+        return count
