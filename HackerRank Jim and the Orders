@@ -1,3 +1,4 @@
+#!/bin/python3
 def jimOrders(orders):
     # Write your code here
     times = [[sum(i)] for i in orders]
