@@ -1,0 +1,43 @@
+#!/bin/python3
+
+import math
+import os
+import random
+import re
+import sys
+
+#
+# Complete the 'alternate' function below.
+#
+# The function is expected to return an INTEGER.
+# The function accepts STRING s as parameter.
+#
+
+def alternate(s):
+    # Write your code here
+    maxlen = 0
+    letters = list(set(list(s)))
+    for i in range(len(letters)):
+        for j in range(i+1,len(letters)):
+            ns = s
+            for letter in letters:
+                if letter != letters[i] and letter != letters[j]:
+                    ns = ns.replace(letter,"")
+            for k in range(1,len(ns)):
+                if ns[k] == ns[k-1]:
+                    break
+            else:
+                maxlen = max(maxlen,len(ns))        
+    return maxlen
+if __name__ == '__main__':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+
+    l = int(input().strip())
+
+    s = input()
+
+    result = alternate(s)
+
+    fptr.write(str(result) + '\n')
+
+    fptr.close()
