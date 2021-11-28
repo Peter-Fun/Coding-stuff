@@ -1,63 +1,65 @@
-#include <iostream>
-#include <vector>
-#include <stack>
+#include <bits/stdc++.h>
 using namespace std;
-int N, R;
-char grid[1002][1002]; // pad with .'s
-int region[1002][1002], area[1000000], perimeter[1000000];
-typedef pair<int,int> pii;
-void visit(int i, int j, int r)
-{
-  stack<pii> to_visit;
-  to_visit.push(make_pair(i,j));
-  while (!to_visit.empty()) {
-    pii current = to_visit.top();
-    to_visit.pop();
-    i = current.first; j = current.second;
-    if (region[i][j] != 0 || grid[i][j]=='.') continue;
-    region[i][j] = R;
-    area[R]++;
-    to_visit.push(make_pair(i-1,j));
-    to_visit.push(make_pair(i+1,j));
-    to_visit.push(make_pair(i,j-1));
-    to_visit.push(make_pair(i,j+1));
+int n;
+int grid[1100][1100];
+int visited[1100][1100];
+int area;
+int perimeter;
+int xdir[4] = {0,0,-1,1};
+int ydir[4] = {1,-1,0,0};
+void look(int x,int y){
+  area++;
+  visited[x][y] = 1;
+  for (int i = 0; i < 4; i++){
+    int nx = x + xdir[i];
+    int ny = y + ydir[i];
+    if (grid[nx][ny] == 0){
+      perimeter++;
+    }
+    else{
+      if (visited[nx][ny] == 0) look(nx,ny);
+    }
   }
 }
-void find_perimeters(void){
-  for (int i=1; i<=N; i++)
-    for (int j=1; j<=N; j++) {
-      int r = region[i][j];
-      if (r == 0) continue;
-      if (region[i-1][j]==0) perimeter[r]++;
-      if (region[i+1][j]==0) perimeter[r]++;
-      if (region[i][j-1]==0) perimeter[r]++;
-      if (region[i][j+1]==0) perimeter[r]++;
-    }
-}
-int main(void){
+int main() {
   freopen("perimeter.in","r",stdin);
-  cin >> N;
-  string s;
-  for (int i=0; i<N+2; i++) grid[0][i] = grid[N+1][i] = '.';    
-  for (int i=1; i<=N; i++) {
-    grid[i][0] = grid[i][N+1] = '.';
-    cin >> s;
-    for (int j=1; j<=N; j++) grid[i][j] = s[j-1];
-  }
-  
-  for (int i=1; i<=N; i++)
-    for (int j=1; j<=N; j++)
-      if (grid[i][j] == '#' && region[i][j] == 0) visit(i,j,++R);
-  find_perimeters();
- 
-  int best_a=0, best_p=0;
-  for (int i=1; i<=R; i++) 
-    if (area[i] > best_a || (area[i] == best_a && perimeter[i] < best_p)) {
-      best_a = area[i];
-      best_p = perimeter[i];
-    }
- 
   freopen("perimeter.out","w",stdout);
-  cout << best_a << " " << best_p << "\n";
-  return 0;
-}
+  cin >> n;
+  for (int i = 0; i < 1100; i++){
+    for (int j = 0; j < 1100; j++){
+      visited[i][j] = 0;
+    }
+  }
+  for (int i = 0; i < n; i++){
+    for (int j = 0; j < n; j++){
+      char input;
+      cin >> input;
+      if (input == '.'){
+        grid[i+50][j+50] = 0;
+      }
+      else{
+        grid[i+50][j+50] = 1;
+      }
+    }
+  }
+  int maxarea = 0;
+  int maxareaperi = 0;
+  for (int i = 0; i < n; i++){
+    for (int j = 0; j < n; j++){
+      area = 0;
+      perimeter = 0;
+      if (grid[i+50][j+50] == 1 && visited[i+50][j+50] == 0){
+        look(i+50,j+50);
+      }
+      if (area > maxarea){
+        maxarea = area;
+        maxareaperi = perimeter;
+      }
+      else if (area == maxarea && perimeter < maxareaperi){
+        maxareaperi = perimeter;
+      }
+    }
+  }
+  cout << maxarea << " " << maxareaperi;
+
+} 
