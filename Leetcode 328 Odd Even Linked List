@@ -1,0 +1,23 @@
+class Solution(object):
+    def oddEvenList(self, head):
+        """
+        :type head: ListNode
+        :rtype: ListNode
+        """
+        if not head:
+            return None
+        
+        first = head
+        evenStart = second = head.next
+        
+        while first.next and first.next.next:
+           
+            first.next = second.next
+            second.next = first.next.next
+            
+            first = first.next
+            second = second.next
+            
+        first.next = evenStart
+        
+        return head
