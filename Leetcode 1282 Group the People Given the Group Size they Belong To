@@ -1,0 +1,23 @@
+class Solution(object):
+    def groupThePeople(self, groupSizes):
+        """
+        :type groupSizes: List[int]
+        :rtype: List[List[int]]
+        """
+        groups = []
+        printedgroups = []
+        for i in range(len(groupSizes)):
+            for j in range(len(groups)):
+                try:
+                    groups[j][0]
+                except IndexError:
+                    pass
+                else:
+                    if groups[j][0] == groupSizes[i] and len(groups[j][1]) != groups[j][0]:
+                        groups[j][1].append(i)
+                        break
+            else:
+                groups.append([groupSizes[i],[i]])
+        for i in groups:
+            printedgroups.append(i[1])
+        return printedgroups
