@@ -1,0 +1,15 @@
+class Solution(object):
+    def maxIceCream(self, costs, coins):
+        """
+        :type costs: List[int]
+        :type coins: int
+        :rtype: int
+        """
+        costs.sort(reverse = False)
+        bars = 0
+        while bars < len(costs):
+            if costs[bars] > coins:
+                break
+            coins -= costs[bars]
+            bars += 1
+        return bars
