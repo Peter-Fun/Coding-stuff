@@ -1,0 +1,14 @@
+class Solution(object):
+    def rotate(self, matrix):
+        """
+        :type matrix: List[List[int]]
+        :rtype: None Do not return anything, modify matrix in-place instead.
+        """
+        length = len(matrix)
+        for i in range(length):
+            liste = []
+            for j in range(length):
+                liste.append(matrix[j][i])
+            matrix.append(liste[::-1])
+        for i in range(length):
+            del matrix[0]
