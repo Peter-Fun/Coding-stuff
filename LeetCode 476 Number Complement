@@ -1,0 +1,15 @@
+class Solution(object):
+    def findComplement(self, num):
+        """
+        :type num: int
+        :rtype: int
+        """
+        powers = []
+        for i in range(32):
+            powers.append(2**i)
+        greatest = 0
+        for power in powers:
+            if power > num:
+                greatest = power
+                break
+        return greatest-num-1
