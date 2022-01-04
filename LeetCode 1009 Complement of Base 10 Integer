@@ -1,0 +1,12 @@
+class Solution(object):
+    def bitwiseComplement(self, n):
+        """
+        :type n: int
+        :rtype: int
+        """
+        if n == 0:
+            return 1
+        maxi = 1
+        while maxi <= n:
+            maxi *= 2
+        return maxi - n - 1
