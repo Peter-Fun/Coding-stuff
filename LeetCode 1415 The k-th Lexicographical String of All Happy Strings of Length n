@@ -1,0 +1,21 @@
+class Solution(object):
+    def getHappyString(self, n, k):
+        """
+        :type n: int
+        :type k: int
+        :rtype: str
+        """
+        previous = [""]
+        current = []
+        for i in range(n):
+            for string in previous:
+                for char in "abc":
+                    if len(string) == 0 or string[-1] != char:
+                        current.append(string+char)
+            previous = current[:]
+            current = []
+        try:
+            return previous[k-1]
+        except:
+            return ""
+        
