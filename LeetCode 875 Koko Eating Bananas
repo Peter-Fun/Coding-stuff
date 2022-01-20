@@ -1,0 +1,27 @@
+class Solution(object):
+    def minEatingSpeed(self, piles, h):
+        """
+        :type piles: List[int]
+        :type h: int
+        :rtype: int
+        """
+        def works(amount):
+            time = 0
+            if amount == 0:
+                return False
+            for pile in piles:
+                if pile % amount != 0:
+                    time += pile // amount + 1
+                else:
+                    time += pile // amount
+            return time <= h
+        mini = 1
+        maxi = 1000000000
+        while True:
+            curr = (mini + maxi) // 2
+            if works(curr):
+                if not works(curr-1):
+                    return curr
+                maxi = curr - 1
+            else:
+                mini = curr + 1
